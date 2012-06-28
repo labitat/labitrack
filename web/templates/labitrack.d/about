@@ -1,0 +1,52 @@
+<div class="hide tmplheader">About Labitrack</div>
+<p>
+Glued togther with the following compoments by <a href="http://asbjorn.it/">Asbjørn Sloth Tønnesen</a> in <a href="http://labitat.dk/">Labitat</a>.
+</p>
+
+<div>
+	Client side:
+	<ul>
+		<li><a href="http://twitter.github.com/bootstrap/">Bootstrap</a></li>
+		<li><a href="http://jquery.com/">jQuery</a></li>
+		<li><a href="http://documentcloud.github.com/backbone/">Backbone</a></li>
+		<li><a href="http://www.handlebarsjs.com">Handlebars</a></li>
+		<li><a href="http://documentcloud.github.com/underscore/">Underscore</a></li>
+	</ul>
+</div>
+<div>
+	Server side (mainly):
+	<ul>
+		<li><a href="https://github.com/esmil/lem">LEM (Lua Event Machine)</a> by <a href="https://labitat.dk/wiki/User:Esmil">Emil Renner Berthing</a> in <a href="http://labitat.dk/">Labitat</a></li>
+		<li><a href="http://2e8.dk/ql570">ql570</a> by <a href="http://asbjorn.it/">Asbjørn Sloth Tønnesen</a> in <a href="http://labitat.dk/">Labitat</a></li>
+		<li><a href="http://www.postgresql.org/">PostgreSQL</a></li>
+	</ul>
+</div>
+
+<h2>Source</h2>
+<p>The source code is available at the following locations:
+<ul>
+	<li><a href="http://2e8.dk/labitat/labitrack">http://2e8.dk/labitat/labitrack</a> (primary)</li>
+	<li><a href="http://github.com/labitat/labitrack">http://github.com/labitat/labitrack</a></li>
+</ul>
+</p>
+
+<h2>License</h2>
+<p>This work is licensed under the terms of the <a href="http://www.gnu.org/licenses/gpl.html">GNU General Public License (GPL)</a> v3 or later.</p>
+
+<pre>
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
+</pre>
+
+<h2>Original version</h2>
+<p>The original implementation of Labitrack was made by Panton and Halfd, with TK, Python, Pyx, SQLite, LaTeX and Brothers proprietary driver.</p>

@@ -1,0 +1,22 @@
+{{pagination}}
+<table class="zebra-striped">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Tags</th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+	{{#each rows}}
+		<tr>
+			<td><a href="/view/{{id}}">{{id}}</a></td>
+			<td><a href="/view/{{id}}">{{name}}</a></td>
+			<td><a href="/view/{{id}}">{{desc}}</a></td>
+			<td><a href="/view/{{id}}">{{tags}}</a></td>
+		</tr>
+	{{/each}}
+	</tbody>
+</table>

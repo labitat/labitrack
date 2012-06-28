@@ -1,0 +1,14 @@
+web/labitrackd.lua
+web/base64.lua
+web/filequeue.lua
+web/dkjson.lua
+web/pub/index.html
+web/js/dist/corelibs.min.js
+web/js/dist/corelibs.src.js
+web/js/dist/qrcode.min.js
+web/js/dist/labitrack.min.js
+web/js/dist/labitrack.src.js
+web/templates/dist/labitrack.min.js
+web/pub/css/bootstrap.1.4.0.min.css
+web/css/dist/labitrack.min.css
+web/pub/favicon.ico

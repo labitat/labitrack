@@ -1,0 +1,18 @@
+<div class="pagination">
+	<ul>
+		Paging on the way
+		<!--
+		{{#each pages}}
+			{{#if link}}
+				<li class="pg_{{id}} {{classes}}">
+					<a href="{{link}}">{{label}}</a>
+				</li>
+			{{else}}
+				<li class="pg_{{id}} {{classes}}">
+					<a>{{label}}</a>
+				</li>
+			{{/if}}
+		{{/each}}
+		-->
+	</ul>
+</div>

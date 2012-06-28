@@ -1,0 +1,8 @@
+<div class="hide tmplheader">{{page}}</div>
+<p>
+	I am {{page}} sfdsfas
+	<ul>
+		<li><a href="/browse">/browse</a></li>
+		<li><a href="/">/</a></li>
+	</ul>
+</p>

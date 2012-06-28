@@ -1,0 +1,8 @@
+<div class="hide tmplheader">{{action}} label #{{id}}</div>
+<h2>Failed</h2>
+<p>
+	There was a problem loading the label data from the server.
+</p>
+<p>
+	Status code returned by the server: <b>{{status}}</b>
+</p>

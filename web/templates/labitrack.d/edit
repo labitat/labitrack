@@ -1,0 +1,2 @@
+<div class="hide tmplheader">Edit label #{{id}}</div>
+{{labelform}}

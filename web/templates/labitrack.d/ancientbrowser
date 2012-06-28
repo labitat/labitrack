@@ -1,0 +1,15 @@
+<div class="hide tmplheader">HTML5 rocks</div>
+<div class="alert-message block-message error">
+	<h2>You are using an unsupported browser</h2>
+	<p>Labitrack requires a fairly modern browser, because it relies on being able to render the labels in your browser.</p>
+	<ul>
+		<li>
+			Canvas support, including support for:
+			<ul>
+				<li>drawing text</li>
+				<li>toDataURL (getting the data of the canvas)</li>
+			</ul>
+		</li>
+		<li>Web fonts</li>
+	</ul>
+</div>
