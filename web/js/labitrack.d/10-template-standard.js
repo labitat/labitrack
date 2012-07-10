@@ -148,7 +148,7 @@
 		}
 
 		ctx.save();
-		var scale = size / qrcode.getModuleCount();
+		var scale = size / (qrcode.getModuleCount()+2);
 		ctx.scale(scale, scale);
 
 		// draw on the canvas
@@ -156,7 +156,7 @@
 		for (var row = 0; row < qrcode.getModuleCount(); row++){
 			for (var col=0; col < qrcode.getModuleCount(); col++){
 				if (qrcode.isDark(row, col)) {
-					ctx.rect(col, row, 1, 1);
+					ctx.rect(col+1, row+1, 1, 1);
 				}
 			}
 		}
@@ -193,6 +193,7 @@
 		ctx.font = '40px sans-serif';
 		ctx.fillText('ID: '+data.id, 20, y);
 		y += 40;
+		ctx.font = 'italic 40px sans-serif';
 		var lines = data.desc.split('\n');
 		for (var i=0; i<lines.length;i++) {
 			ctx.fillText(lines[i], 20, y);
