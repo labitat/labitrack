@@ -3,10 +3,10 @@
 
 	function handle_click(event) {
 		if (!Modernizr.history) return true;
-		event.preventDefault();
 		var href = $(event.target).attr('href');
 		var curpath = window.location.pathname;
 		if (href !== undef && href[0] === '/') {
+			event.preventDefault();
 			if (curpath === href) {
 				console.log('ignoring click event for', href);
 				return;
