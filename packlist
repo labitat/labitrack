@@ -12,8 +12,6 @@ web/templates/dist/labitrack.min.js
 web/css/dist/labitrack.min.css
 web/pub/favicon.ico
 web/pub/bootstrap/css/bootstrap.css
-web/pub/bootstrap/css/bootstrap.min.css
 web/pub/bootstrap/css/bootstrap-responsive.css
-web/pub/bootstrap/css/bootstrap-responsive.min.css
 web/pub/bootstrap/img/glyphicons-halflings-white.png
 web/pub/bootstrap/img/glyphicons-halflings.png
