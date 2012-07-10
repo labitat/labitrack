@@ -9,6 +9,11 @@ web/js/dist/qrcode.min.js
 web/js/dist/labitrack.min.js
 web/js/dist/labitrack.src.js
 web/templates/dist/labitrack.min.js
-web/pub/css/bootstrap.1.4.0.min.css
 web/css/dist/labitrack.min.css
 web/pub/favicon.ico
+web/pub/bootstrap/css/bootstrap.css
+web/pub/bootstrap/css/bootstrap.min.css
+web/pub/bootstrap/css/bootstrap-responsive.css
+web/pub/bootstrap/css/bootstrap-responsive.min.css
+web/pub/bootstrap/img/glyphicons-halflings-white.png
+web/pub/bootstrap/img/glyphicons-halflings.png
