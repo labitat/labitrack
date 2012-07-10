@@ -1,10 +1,13 @@
 (function(){
-	function on_submit(label, o)
+	function on_submit(label, o, print)
 	{
 		o.save(undef, {success: function() {
 			label.set_data(o.toJSON());
 			Backbone.history.navigate('/view/'+o.id, true);
 		}});
+		if (print) {
+			label.print();
+		}
 	}
 
 	function success(o)

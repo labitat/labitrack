@@ -2,11 +2,15 @@
 	var r = λ.r = new Backbone.Router();
 
 	function handle_click(event) {
-		console.log('click');
 		if (!Modernizr.history) return true;
 		event.preventDefault();
 		var href = $(event.target).attr('href');
+		var curpath = window.location.pathname;
 		if (href !== undef && href[0] === '/') {
+			if (curpath === href) {
+				console.log('ignoring click event for', href);
+				return;
+			}
 			Backbone.history.navigate(href, true);
 		}
 	}

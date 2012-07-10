@@ -1,52 +1,51 @@
 <!doctype html>
-<html>
+<html lang="en">
 	<head>
-		<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+		<meta charset="utf-8">
 		<title>labitrack</title>
-		<link rel="stylesheet" href="/css/bootstrap.1.4.0.min.css">
+		<link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
 		<link rel="stylesheet" href="/css/labitrack.css">
-		<script type="text/javascript" src="/js/corelibs.min.js"></script>
-		<script type="text/javascript" src="/js/templates.js"></script>
-		<script type="text/javascript" src="/js/qrcode.min.js"></script>
-		<script type="text/javascript" src="/js/labitrack.src.js"></script>
 	</head>
 	<body>
-		<div class="topbar">
-			<div class="fill">
-				<div class="container">
-					<a class="brand" href="/">Labitrack</a>
-
-					<ul class="nav">
-						<li><a href="/">Create</a></li>
-						<li><a href="/browse">Browse</a></li>
-						<li><a href="/recent">Recent</a></li>
-						<li><a href="/about">About</a></li>
-					</ul>
-					<!--<form action="/search" class="pull-right">
-						<input class="input-small" type="text" name="q" placeholder="#, name, desc">
-						<button class="btn" type="submit">Search</button>
-					</form>-->
+		<div class="container">
+			<div class="navbar">
+				<div class="navbar-inner">
+					<div class="container">
+						<a class="brand" href="/">Labitrack</a>
+						<ul class="nav">
+							<li><a href="/">Create</a></li>
+							<li><a href="/browse">Browse</a></li>
+							<li><a href="/recent">Recent</a></li>
+							<li><a href="/about">About</a></li>
+						</ul>
+						<!--<form action="/search" class="pull-right">
+							<input class="input-small" type="text" name="q" placeholder="#, name, desc">
+							<button class="btn" type="submit">Search</button>
+						</form>-->
+					</div>
 				</div>
 			</div>
-		</div>
-
-		<div class="container">
+			<div id="alerts"></div>
 			<div class="content">
 				<div class="page-header">
 					<h1>Labitrack <small>waiting for javascript</small></h1>
 				</div>
 				<noscript>
-					<div class="alert-message block-message error">
+					<div class="alert-error alert">
 						<h2>Labitrack requires Javascript to be enabled</h2>
 						<p><em>Sorry,</em> but it generates the labels with HTML5. Feel free to make a nodejs-based server for it, that can generate the labels server-side.</p>
 					</div>
 				</noscript>
-				<div id="tmplcontent"/>
-			</div>
+				<div id="tmplcontent"/></div>
 
-			<footer>
-				<p>Labitrack - &copy; 2011-2012 Labitat (see  <a href="/about">full credits</a>)</p>
-			</footer>
+				<footer>
+					<p>Labitrack - &copy; 2011-2012 Labitat (see  <a href="/about">full credits</a>)</p>
+				</footer>
+			</div>
 		</div>
+		<script type="text/javascript" src="/js/corelibs.min.js"></script>
+		<script type="text/javascript" src="/js/templates.js"></script>
+		<script type="text/javascript" src="/js/qrcode.min.js"></script>
+		<script type="text/javascript" src="/js/labitrack.src.js"></script>
 	</body>
 </html>

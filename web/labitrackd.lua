@@ -181,7 +181,13 @@ GET('/js/labitrack.min.js', sendfile_js('js/dist/labitrack.min.js'))
 GET('/js/labitrack.src.js', sendfile_js('js/dist/labitrack.src.js'))
 GET('/js/templates.js',     sendfile_js('templates/dist/labitrack.min.js'))
 
-GET('/css/bootstrap.1.4.0.min.css', sendfile_css('pub/css/bootstrap.1.4.0.min.css'))
+GET('/bootstrap/css/bootstrap.css', sendfile_css('pub/bootstrap/css/bootstrap.css'))
+GET('/bootstrap/css/bootstrap.min.css', sendfile_css('pub/bootstrap/css/bootstrap.min.css'))
+GET('/bootstrap/css/bootstrap-responsive.css', sendfile_css('pub/bootstrap/css/bootstrap-responsive.css'))
+GET('/bootstrap/css/bootstrap-responsive.min.css', sendfile_css('pub/bootstrap/css/bootstrap-responsive.min.css'))
+GET('/bootstrap/img/glyphicons-halflings-white.png', sendfile_css('pub/bootstrap/img/glyphicons-halflings-white.png'))
+GET('/bootstrap/img/glyphicons-halflings.png', sendfile_css('pub/bootstrap/img/glyphicons-halflings.png'))
+
 GET('/css/labitrack.css',           sendfile_css('css/dist/labitrack.min.css'))
 
 GET('/favicon.ico', sendfile('image/x-icon', 'pub/favicon.ico'))

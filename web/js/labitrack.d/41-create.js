@@ -1,11 +1,18 @@
 (function(){
-	function on_submit(label, o) {
+	function on_submit(label, o, print) {
 		o.save(undef, {
 			success: function(){
 				label.set_data(o.toJSON());
-				label.print();
+				if (print) {
+					label.print();
+				}
+				var id = o.get('id');
 
 				console.log('Saved with id: ' + o.get('id'));
+				λ.alert('newlabel', {id: o.get('id')});
+
+				o.set('id', undefined);
+				label.trigger_refresh();
 			}
 		});
 	}

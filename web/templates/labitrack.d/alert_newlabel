@@ -1,0 +1,4 @@
+<div class="alert alert-success">
+	<button class="close" data-dismiss="alert">&times;</button>
+	<strong>Yay!</strong> You have just created <a href="/view/{{id}}">label #{{id}}<a/>.
+</div>
