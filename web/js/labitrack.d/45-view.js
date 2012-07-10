@@ -8,7 +8,7 @@
 					var label = new λ.label();
 					label.set_canvas(canvas);
 					label.set_data(o.toJSON());
-					$('.bnt_print').die().click(function(){
+					$('.btn_print').click(function(){
 						label.print();
 						return false;
 					});
