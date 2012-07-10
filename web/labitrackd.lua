@@ -168,11 +168,11 @@ local htmlpage = sendfile('text/html; charset=UTF-8', 'pub/index.html')
 
 GET('/',                 htmlpage)
 GET('/browse',           htmlpage)
-MATCH('^/browse/(%d+)$', htmlpage)
+GETM('^/browse/(%d+)$', htmlpage)
 GET('/recent',           htmlpage)
 GET('/about',            htmlpage)
-MATCH('^/view/(%d+)$',   htmlpage)
-MATCH('^/edit/(%d+)$',   htmlpage)
+GETM('^/view/(%d+)$',   htmlpage)
+GETM('^/edit/(%d+)$',   htmlpage)
 
 GET('/js/corelibs.min.js',  sendfile_js('js/dist/corelibs.min.js'))
 GET('/js/corelibs.src.js',  sendfile_js('js/dist/corelibs.src.js'))
@@ -192,11 +192,7 @@ GET('/css/labitrack.css',           sendfile_css('css/dist/labitrack.min.css'))
 
 GET('/favicon.ico', sendfile('image/x-icon', 'pub/favicon.ico'))
 
-MATCH('^/browse/(%d+).json$', function(req, res, since)
-	if req.method ~= 'HEAD' and req.method ~= 'GET' then
-		return hathaway.method_not_allowed(req, res)
-	end
-
+GETM('^/browse/(%d+).json$', function(req, res, since)
 	set_json_nocache_headers(res)
 
 	res:add('{"count": %d, "objects":', count());
@@ -248,14 +244,9 @@ local function save_or_update(req, res)
 end
 
 POST('/o', save_or_update)
+PUTM('^/o/(%d+).json$', save_or_update)
 
-MATCH('^/o/(%d+).json$', function(req, res, id)
-	if req.method == 'PUT' then
-		return save_or_update(req, res)
-	elseif req.method ~= 'HEAD' and req.method ~= 'GET' then
-		return hathaway.method_not_allowed(req, res)
-	end
-
+GETM('^/o/(%d+).json$', function(req, res, id)
 	set_json_nocache_headers(res)
 
 	qr = db:run('get', id)
