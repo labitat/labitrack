@@ -10,6 +10,6 @@ print_queue(){
 }
 
 print_queue
-while inotifywait --quiet "$queuedir/new" /dev; do
+while inotifywait --quiet --timeout 30 "$queuedir/new"; do
 	print_queue
 done
