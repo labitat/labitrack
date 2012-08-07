@@ -13,4 +13,6 @@ $(SUBDIRS):
 $(SUBDIRS_CLEAN):
 	make -C $(subst _clean,,$@) clean
 pack:
-	tar zcfv pack.tar.gz $(shell cat packlist)
+	tar Jcfv pack.tar.xz $(shell cat packlist)
+deploy:
+	tar Jcf - $(shell cat packlist) | ssh space.labitat.dk tar Jxf -

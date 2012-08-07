@@ -1,0 +1,2 @@
+# rule for labelprinter
+SUBSYSTEM=="usb", ATTRS{idVendor}=="04f9", ATTRS{idProduct}=="2028", SYMLINK+="labelprinter", MODE="0666"
