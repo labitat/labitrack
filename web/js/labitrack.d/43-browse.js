@@ -1,4 +1,5 @@
 (function(){
+
 	function hdl_add(){
 		console.log('add');
 	}
@@ -41,39 +42,14 @@
 			messages.bind("remove", hdl_remove, this);
 		},
 		render: function(page){
+			if (page) this.page = page;
+			page = this.page;
 			var stats = this.collection.stats;
 			var pages = [];
-			var dots = { id: 'dots', label: '…' };
-			pages.push({
-				id: 'first',
-				link: '/browse',
-				label: '|&larr;',
-				classes: 'prev'
-			});
-			pages.push({
-				id: 'prev',
-				link: '/browse',
-				label: '&larr;'
-			});
-			pages.push(dots);
-			pgno = 1;
-			pages.push({
-				id: pgno,
-				link: '/browse/'+pgno,
-				label: pgno
-			});
-			pages.push(dots);
-			pages.push({
-				id: 'next',
-				link: '/browse',
-				label: '&rarr;'
-			});
-			pages.push({
-				id: 'last',
-				link: '/browse',
-				label: '&rarr;|',
-				classes: 'next'
-			});
+			if (stats !== undefined) {
+				var pgcnt = Math.ceil(stats.count / 10);
+				pages = λ.pagination(page, pgcnt);
+			}
 			var data = {
 				rows: this.collection.toJSON(),
 				pages: pages
@@ -92,13 +68,16 @@
 		},
 		render: function (page) {
 			page || (page = 1);
+			page = parseInt(page, 10);
+			console.log('page', page);
 			λ.setcontent('browse', {page: page});
 			this.browse.el = $(this.el).find('#objecttable_ph')[0];
+			console.log(this.browse.render);
 			this.browse.render(page);
 			this.browse.collection.fetchpage(page);
 		}
 	});
 
 	view.route('browse');
-	view.route('browse/:page');
+	view.route('browse/page/:page');
 }());

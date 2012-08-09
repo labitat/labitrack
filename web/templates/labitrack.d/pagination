@@ -1,7 +1,5 @@
 <div class="pagination">
 	<ul>
-		Paging on the way
-		<!--
 		{{#each pages}}
 			{{#if link}}
 				<li class="pg_{{id}} {{classes}}">
@@ -13,6 +11,5 @@
 				</li>
 			{{/if}}
 		{{/each}}
-		-->
 	</ul>
 </div>
