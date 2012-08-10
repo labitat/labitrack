@@ -48,6 +48,10 @@ search = Backbone.View.extend {
 			pgcnt = Math.ceil(meta.count / 10)
 			pages = λ.pagination '/search/'+q,  page, pgcnt
 
+			if meta.count is 1
+				url = '/view/' + @collection.at(0).id
+				return Backbone.history.navigate(url, true)
+
 		data = {
 			rows: @collection.toJSON(),
 			pages
