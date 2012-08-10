@@ -101,7 +101,8 @@ local function add_json_row(res, values, i)
 		for j = 1, clen do
 			local k = values[0][j]
 			local v = point[j]
-			if k == 'id' then
+			if k == nil then
+			elseif k == 'id' then
 				d[k] = tonumber(v)
 			elseif k == 'created' then
 				d[k] = tonumber(v)
@@ -154,6 +155,8 @@ assert(db:prepare('since',  'SELECT '..cols..' FROM objects ORDER BY id LIMIT 10
 assert(db:prepare('insert', 'INSERT INTO objects (name, "desc", tags) VALUES ($1, $2, string_to_array($3, \',\')::text[]) RETURNING id;'))
 assert(db:prepare('update', 'UPDATE objects SET name=$2, "desc"=$3, tags=string_to_array($4, \',\')::text[], updated=now() WHERE id = $1;'))
 assert(db:prepare('count',  'SELECT COUNT(id) FROM objects;'))
+assert(db:prepare('search', 'SELECT * FROM (SELECT row_number() over (order by rank desc, updated desc) as rn, * FROM (SELECT count(*) over () as cnt, '..cols..', ts_rank_cd(textsearch, query) AS rank FROM objects, to_tsquery($1) query WHERE query @@ textsearch) ss1) ss2 where rn between $2+1 and $2+10;'))
+assert(db:prepare('search_plain', 'SELECT plainto_tsquery($1);'))
 
 local function count()
 	return assert(db:run('count'))[1][1]
@@ -173,6 +176,8 @@ GET('/recent',               htmlpage)
 GET('/about',                htmlpage)
 GETM('^/view/(%d+)$',        htmlpage)
 GETM('^/edit/(%d+)$',        htmlpage)
+GET('/search',               htmlpage)
+GETM('^/search/',            htmlpage)
 
 GET('/js/corelibs.min.js',  sendfile_js('js/dist/corelibs.min.js'))
 GET('/js/corelibs.src.js',  sendfile_js('js/dist/corelibs.src.js'))
@@ -198,6 +203,60 @@ GETM('^/browse/(%d+).json$', function(req, res, since)
 	res:add('{"count": %d, "objects":', count());
 	add_json(res, assert(db:run('since', (since-1)*10)))
 	res:add('}');
+end)
+
+local function urldecode(str)
+	return str:gsub('+', ' '):gsub('%%(%x%x)', function (str)
+		return string.char(tonumber(str, 16))
+	end)
+end
+local function parse_qs(str)
+	local t = {}
+	for k, v in str:gmatch('([^&]+)=([^&]*)') do
+		t[urldecode(k)] = urldecode(v)
+	end
+	return t
+end
+
+GETM('^/search.json%??(.*)$', function(req, res, rawqs)
+	set_json_nocache_headers(res)
+
+	qs = parse_qs(rawqs)
+
+	q = qs['q']
+
+	if q == nil then
+		q = ''
+	end
+
+	offset = qs['offset']
+	if offset == nil then
+		offset = 0
+	end
+
+	_, result = pcall(db.run, db, 'search', q, offset)
+
+	if result == nil then
+		q = assert(db:run('search_plain', q))[1][1]
+		result = assert(db:run('search', q, offset))
+	end
+
+	local n = #result
+	if n > 0 then
+		cols = #result[0]
+		setmetatable(result[0], { __len = function(op)
+			return cols
+		end })
+		result[0][1] = nil
+		result[0][2] = nil
+		cnt = result[1][2]
+
+		res:add('{"count": %d, "offset": %d, "query": %s, "objects":', cnt, offset, json.encode(q));
+		add_json(res, result)
+		res:add('}');
+	else
+		res:add('{"count": 0, "offset": 0, "query": %s}', json.encode(q));
+	end
 end)
 
 GET('/queue.json', function(req, res)

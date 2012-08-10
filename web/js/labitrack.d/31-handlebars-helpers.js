@@ -5,6 +5,9 @@
 	Handlebars.registerHelper('pagination', function(){
 		return new Handlebars.SafeString(λ.template('pagination', this));
 	});
+	Handlebars.registerHelper('objecttable', function(){
+		return new Handlebars.SafeString(λ.template('objecttable', this));
+	});
 	Handlebars.registerHelper('dump_ctx', function(){
 		console.log({'ctx': this});
 	});

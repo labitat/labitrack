@@ -1,43 +1,51 @@
 λ.pagination = (->
-	link = (pg) -> '/browse' + (if pg > 1 then '/page/' + pg else '')
 
 	class pgs
-		constructor: -> @pages = []
+		constructor: (@prefix, @pg, @cnt) -> @pages = []
+		link: (pg) -> @prefix + (if pg > 1 then '/page/' + pg else '')
 		dots: -> @pages.push { id: 'dots', label: '…', classes: 'disabled' }
 		page: (pgno) -> @pages.push {
 			id: pgno
-			link: link pgno
+			link: @link pgno
 			label: pgno
 		}
 		first: -> @pages.push {
 			id: 'first'
-			link: link 1
+			link: @link 1
 			label: '|&larr;'
 			classes: 'prev'
 		}
-		prev: (pg) -> @pages.push {
-			id: 'prev'
-			link: link pg
-			label: '&larr;'
-		}
-		next: (pg) -> @pages.push {
-			id: 'next'
-			link: link pg
-			label: '&rarr;'
-		}
+		prev: (pg) ->
+			i =
+				id: 'prev'
+				link: @link pg
+				label: '&larr;'
+			if @pg is 1
+				i.link = undefined
+				i.classes = 'disabled'
+			@pages.push i
+		next: (pg) ->
+			i =
+				id: 'next'
+				link: @link pg
+				label: '&rarr;'
+			if @pg is @cnt
+				i.link = undefined
+				i.classes = 'disabled'
+			@pages.push i
 		last: (pg) -> @pages.push {
 			id: 'last'
-			link: link pg
+			link: @link pg
 			label: '&rarr;|'
 			classes: 'next'
 		}
 
-	return (page, cnt) ->
-		p = new pgs
-		first = page != 1
-		prev = page > 2
-		next = page + 1 < cnt
-		last = page < cnt
+	return (prefix, page, cnt) ->
+		p = new pgs prefix, page, cnt
+		first = page != 1 and cnt >= 10
+		prev = page > 2 or cnt < 10
+		next = page + 1 < cnt or cnt < 10
+		last = page < cnt and cnt >= 10
 		slots = 11
 
 		left = right = Math.floor(slots / 2)

@@ -1,0 +1,15 @@
+{{#if meta.count}}
+	<p>Found <strong>{{meta.count}}</strong> results for »<strong>{{meta.query}}</strong>«</p>
+	{{objecttable}}
+{{else}}
+	{{#if meta.query}}
+		<div class="alert alert-info">
+			No results for »<strong>{{meta.query}}</strong>«
+		</div>
+	{{else}}
+		<div class="alert alert-notice">
+			<strong>Use the search box!</strong>
+			It is the located in the top right corner.
+		</div>
+	{{/if}}
+{{/if}}

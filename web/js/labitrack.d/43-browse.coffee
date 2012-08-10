@@ -35,7 +35,7 @@ browse = Backbone.View.extend {
 		pages = []
 		if stats != undefined
 			pgcnt = Math.ceil(stats.count / 10)
-			pages = λ.pagination page, pgcnt
+			pages = λ.pagination '/browse', page, pgcnt
 
 		data = {
 			rows: @collection.toJSON(),
