@@ -30,6 +30,37 @@ end
 local pg_connect_str = 'host=localhost user=labitrack dbname=labitrack password=nerfyoawdAj3'
 local bind = arg[1] or '*:8080'
 local queue_dir = arg[2] or './queue'
+
+local acl_labitat = {
+	create = true,
+	update = true,
+	printing = true,
+}
+
+local acl_everywhere = {
+	create = false,
+	update = false,
+	printing = false,
+}
+
+local labitat_addresses = {
+	'185.38.175.',
+	'2a01:4260:1ab:',
+	'10.42.',
+}
+
+local function getpermisions(ip)
+	if not ip then return acl_everywhere end
+	for i=1,#labitat_addresses do
+		local prefix = labitat_addresses[i]
+		if ip:sub(1,#prefix) == prefix then
+			return acl_labitat
+		end
+	end
+	return acl_everywhere
+end
+
+
 --
 -- end of settings
 --
@@ -136,6 +167,25 @@ end
 local function set_json_nocache_headers(res)
 	res.headers['Content-Type'] = 'application/json; charset=UTF-8'
 	res.headers['Cache-Control'] = 'max-age=0, must-revalidate'
+end
+
+local function forbidden(req, res)
+	set_json_nocache_headers(res)
+	res.status = 403
+	res:add('{"count": %d, "objects":', count());
+	add_json(res, assert(db:run('since', (since-1)*10)))
+	res:add('}');
+end
+
+local function allow(perm, req, res)
+	local ip = req.headers['x-real-ip']
+	local p = getpermisions(ip)
+	if p[perm] then
+		return true
+	else
+		forbidden(req, res)
+		return false
+	end
 end
 
 local function unescape(s)
@@ -259,12 +309,20 @@ GETM('^/search.json%??(.*)$', function(req, res, rawqs)
 	end
 end)
 
+GET('/permissions.json', function(req, res)
+	set_json_nocache_headers(res)
+	local ip = req.headers['x-real-ip']
+	local p = getpermisions(ip)
+	res:add('%s', json.encode(p))
+end)
+
 GET('/queue.json', function(req, res)
 	set_json_nocache_headers(res)
 	res:add('%s', json.encode(queue:stat()))
 end)
 
 GET('/queue.json?empty', function(req, res)
+	if not allow('printing', req, res) then return end
 	set_json_nocache_headers(res)
 	res:add('%s', json.encode(queue:empty()))
 end)
@@ -285,8 +343,10 @@ local function save_or_update(req, res)
 
 	local id
 	if label['id'] == nil then
+		if not allow('create', req, res) then return end
 		id = assert(db:run('insert', label['name'], label['desc'], table.concat(label['tags'], ',')))[1][1]
 	else
+		if not allow('update', req, res) then return end
 		assert(db:run('update', label['id'], label['name'], label['desc'], table.concat(label['tags'], ',')))
 		id = label['id']
 	end
@@ -310,6 +370,8 @@ end)
 
 
 POST('/print.json', function(req, res)
+	if not allow('printing', req, res) then return end
+
 	set_json_nocache_headers(res)
 
 	local expected = "application/x-www-form-urlencoded"
