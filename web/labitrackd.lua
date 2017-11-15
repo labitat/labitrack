@@ -274,14 +274,6 @@ GET('/recent.json', function(req, res)
 	add_json(res, assert(db:run('recent')))
 end)
 
-local function unescape(s)
-	s = string.gsub(s, "+", " ")
-	s = string.gsub(s, "%%(%x%x)", function (h)
-		return string.char(tonumber(h, 16))
-	end)
-	return s
-end
-
 local function save_or_update(req, res)
 	set_json_nocache_headers(res)
 
