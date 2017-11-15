@@ -286,7 +286,7 @@ local function save_or_update(req, res)
 	set_json_nocache_headers(res)
 
 	local expected = "application/json"
-	assert(string.sub(req.headers['Content-Type'], 1, string.len(expected)) == expected)
+	assert(string.sub(req.headers['content-type'], 1, string.len(expected)) == expected)
 
 	local body = req:body()
 	local label = json.decode(body)
@@ -321,7 +321,7 @@ POST('/print.json', function(req, res)
 	set_json_nocache_headers(res)
 
 	local expected = "application/x-www-form-urlencoded"
-	assert(string.sub(req.headers['Content-Type'], 1, string.len(expected)) == expected)
+	assert(string.sub(req.headers['content-type'], 1, string.len(expected)) == expected)
 
 	local body = unescape(req:body())
 	expected = "image=data:image/png;base64,"
