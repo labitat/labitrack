@@ -200,8 +200,8 @@ end
 local db = assert(qpostgres.connect(pg_connect_str))
 local cols = 'id, name, "desc", tags, extract(epoch from created)::int8 created, extract(epoch from updated)::int8 updated'
 assert(db:prepare('get',    'SELECT '..cols..' FROM objects WHERE id = $1'))
-assert(db:prepare('recent', 'SELECT '..cols..' FROM objects ORDER BY updated DESC LIMIT 10;'))
-assert(db:prepare('since',  'SELECT '..cols..' FROM objects ORDER BY id LIMIT 10 OFFSET $1;'))
+assert(db:prepare('recent', 'SELECT '..cols..' FROM objects ORDER BY updated DESC;'))
+assert(db:prepare('since',  'SELECT '..cols..' FROM objects ORDER BY id OFFSET $1;'))
 assert(db:prepare('insert', 'INSERT INTO objects (name, "desc", tags) VALUES ($1, $2, string_to_array($3, \',\')::text[]) RETURNING id;'))
 assert(db:prepare('update', 'UPDATE objects SET name=$2, "desc"=$3, tags=string_to_array($4, \',\')::text[], updated=now() WHERE id = $1;'))
 assert(db:prepare('count',  'SELECT COUNT(id) FROM objects;'))
